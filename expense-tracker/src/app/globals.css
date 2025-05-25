@@ -1,0 +1,62 @@
+@tailwind utilities;
+@import 'tailwindcss';
+
+:root {
+  --primary: #10B981;
+  --primary-dark: #059669;
+  --secondary: #3B82F6;
+  --accent: #8B5CF6;
+  --success: #10B981;
+  --error: #EF4444;
+  --background: #FFFFFF;
+  --background-alt: #F9FAFB;
+  --foreground: #1F2937;
+  --foreground-alt: #111827;
+  --border: #E5E7EB;
+}
+
+.dark {
+  --primary: #059669;
+  --primary-dark: #047857;
+  --secondary: #3B82F6;
+  --accent: #A78BFA;
+  --success: #059669;
+  --error: #F87171;
+  --background: #1F2937;
+  --background-alt: #111827;
+  --foreground: #F9FAFB;
+  --foreground-alt: #FFFFFF;
+  --border: #374151;
+}
+
+@layer base {
+  body {
+    @apply bg-[var(--background)] text-[var(--foreground)] transition-colors duration-300;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-[var(--primary)] hover:bg-[var(--primary-dark)] text-white px-4 py-2 rounded-lg transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply bg-[var(--secondary)] hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors;
+  }
+  
+  .btn-accent {
+    @apply bg-[var(--accent)] hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors;
+  }
+  
+  .btn-outline {
+    @apply bg-transparent border border-[var(--border)] text-[var(--foreground)] px-4 py-2 rounded-lg hover:bg-[var(--background-alt)] transition-colors;
+  }
+  
+  .input-field {
+    @apply w-full px-4 py-2 border border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] bg-[var(--background)] text-[var(--foreground)];
+  }
+  
+  .card {
+    @apply bg-[var(--background)] border border-[var(--border)] rounded-lg shadow-sm p-6;
+  }
+}

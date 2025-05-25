@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                    Int                     @id @default(autoincrement())
+  name                  String
+  email                 String                  @unique
+  password              String
+  isPremium             Boolean                 @default(false)
+  totalExpenses         Float                   @default(0)
+  expenses              Expense[]
+  orders                Order[]
+  forgotPasswordRequests ForgotPasswordRequest[]
+  downloadHistories     DownloadHistory[]
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+}
+
+model Expense {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  amount      Decimal  @db.Decimal(10, 2)
+  description String
+  category    String
+  type        ExpenseType @default(expense)
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  orderId   String
+  status    String   @default("PENDING")
+  paymentId String?
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ForgotPasswordRequest {
+  id        String   @id @default(uuid())
+  userId    Int
+  isActive  Boolean  @default(true)
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DownloadHistory {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  fileUrl      String
+  downloadedAt DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+enum ExpenseType {
+  income
+  expense
+}

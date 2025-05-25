@@ -1,0 +1,35 @@
+{
+  "name": "complete_expense_tracker",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.735.0",
+    "@aws-sdk/lib-storage": "^3.735.0",
+    "@aws-sdk/s3-request-presigner": "^3.735.0",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "compression": "^1.7.5",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "json2csv": "^6.0.0-alpha.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.12.0",
+    "razorpay": "^2.9.5",
+    "sequelize": "^6.37.5",
+    "sib-api-v3-sdk": "^8.5.0",
+    "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "@prisma/client": "^6.8.2",
+    "pg": "^8.16.0",
+    "prisma": "^6.8.2"
+  }
+}

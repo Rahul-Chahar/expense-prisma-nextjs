@@ -1,0 +1,57 @@
+/* Add animation for notifications */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-20px); }
+}
+
+@layer utilities {
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+  
+  .animate-fadeOut {
+    animation: fadeOut 0.3s ease-out forwards;
+  }
+}
+
+/* Improve focus styles for accessibility */
+@layer base {
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+  
+  /* Improved dark mode transitions */
+  .dark .card,
+  .dark .btn-primary,
+  .dark .btn-secondary,
+  .dark .input-field {
+    @apply transition-colors duration-300;
+  }
+  
+  /* Responsive improvements */
+  @media (max-width: 640px) {
+    .container {
+      @apply px-4;
+    }
+  }
+}
+
+/* Enhanced card hover effects */
+.card {
+  @apply transition-shadow duration-300 hover:shadow-md;
+}
+
+/* Button hover animations */
+.btn-primary, .btn-secondary, .btn-accent {
+  @apply transition-all duration-300 transform hover:scale-105 active:scale-95;
+}
+
+/* Form input focus animations */
+.input-field:focus {
+  @apply transition-all duration-300 border-primary;
+}
