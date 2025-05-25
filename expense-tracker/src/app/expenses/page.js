@@ -60,7 +60,7 @@ export default function ExpensesPage() {
       const token = localStorage.getItem('token');
       if (!token) throw new Error('User not authenticated');
 
-      const response = await fetch('http://localhost:8080/api/payments/create-order', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/payments/create-order`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -78,7 +78,7 @@ export default function ExpensesPage() {
         order_id: data.order_id,
         handler: async (response) => {
           try {
-            const updateResponse = await fetch('http://localhost:8080/api/payments/update-status', {
+            const updateResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/payments/update-status`, {
               method: 'POST',
               headers: {
                 Authorization: `Bearer ${token}`,

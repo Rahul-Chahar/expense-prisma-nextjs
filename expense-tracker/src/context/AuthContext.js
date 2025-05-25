@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     try {
-      const response = await fetch('http://localhost:8080/api/users/login', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export function AuthProvider({ children }) {
 
   const signup = async (name, email, password) => {
     try {
-      const response = await fetch('http://localhost:8080/api/users/signup', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ export function AuthProvider({ children }) {
 
   const checkPremiumStatus = async (token) => {
     try {
-      const response = await fetch('http://localhost:8080/api/premium/status', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/premium/status`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

@@ -20,7 +20,7 @@ export default function LeaderboardModal({ isOpen, onClose }) {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:8080/api/premium/leaderboard', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/premium/leaderboard`, {
         headers: { 
           Authorization: `Bearer ${token}` 
         }

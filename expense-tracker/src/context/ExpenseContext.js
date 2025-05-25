@@ -36,7 +36,7 @@ export function ExpenseProvider({ children }) {
 
     // Verify token is still valid by making a test request
     try {
-      const testResponse = await fetch('http://localhost:8080/api/expenses/user', {
+      const testResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/expenses/user`, {
         method: 'HEAD', // Just check if we can access the endpoint
         headers: {
           Authorization: `Bearer ${token}`,
@@ -73,7 +73,7 @@ export function ExpenseProvider({ children }) {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:8080/api/expenses/user', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/expenses/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ export function ExpenseProvider({ children }) {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:8080/api/expenses/add', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/expenses/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -166,7 +166,7 @@ export function ExpenseProvider({ children }) {
     setError(null);
 
     try {
-      const response = await fetch(`http://localhost:8080/api/expenses/${expenseId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/expenses/${expenseId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

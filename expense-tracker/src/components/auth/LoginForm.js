@@ -17,7 +17,7 @@ export default function LoginForm() {
     setSuccessMessage('');
 
     try {
-      const response = await fetch('http://localhost:8080/api/users/login', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export default function LoginForm() {
     setResetLoading(true);
     
     try {
-      const response = await fetch('http://localhost:8080/api/password/forgotpassword', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/password/forgotpassword`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

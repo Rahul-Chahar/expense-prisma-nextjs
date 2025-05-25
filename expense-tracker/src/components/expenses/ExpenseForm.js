@@ -32,7 +32,7 @@ export default function ExpenseForm({ onExpenseAdded }) {
         throw new Error('Please enter a valid amount');
       }
 
-      const response = await fetch('http://localhost:8080/api/expenses/add', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/expenses/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
