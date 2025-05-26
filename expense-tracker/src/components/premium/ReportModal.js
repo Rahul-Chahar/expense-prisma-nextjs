@@ -25,7 +25,7 @@ export default function ReportModal({ isOpen, onClose, isPremiumUser }) {
     setIsLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/expenses/report/${reportType}`, {
+      const response = await fetch(`http://localhost:8080/api/expenses/report/${reportType}`, {
         headers: { 
           Authorization: `Bearer ${token}` 
         }
@@ -64,7 +64,7 @@ export default function ReportModal({ isOpen, onClose, isPremiumUser }) {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/expenses/download-history`, {
+      const response = await fetch(`http://localhost:8080/api/expenses/download-history`, {
         headers: { 
           Authorization: `Bearer ${token}` 
         }
@@ -86,7 +86,7 @@ export default function ReportModal({ isOpen, onClose, isPremiumUser }) {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/expenses/download?type=${reportType}`, {
+      const response = await fetch(`http://localhost:8080/api/expenses/download?type=${reportType}`, {
         headers: { 
           Authorization: `Bearer ${token}` 
         }

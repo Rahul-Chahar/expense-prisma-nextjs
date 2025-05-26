@@ -148,7 +148,7 @@ export default function PremiumSidebarDrawer({ isPremium, onBuyPremium, onShowLe
 
                 {/* Features List */}
                 <div className="bg-gray-50 p-4 rounded-lg">
-                  <h3 className="font-semibold text-gray-800 mb-3">What you'll get:</h3>
+                  <h3 className="font-semibold text-gray-800 mb-3">What you will get:</h3>
                   <div className="space-y-3">
                     <div className="flex items-center space-x-3">
                       <FileText size={18} className="text-blue-600" />
@@ -180,7 +180,7 @@ export default function PremiumSidebarDrawer({ isPremium, onBuyPremium, onShowLe
           {/* Footer */}
           <div className="p-6 border-t border-gray-200 bg-gray-50">
             <p className="text-xs text-gray-500 text-center">
-              Questions? Contact our support team for assistance.
+              Questions? Contact our support team for assistance. 
             </p>
           </div>
         </div>

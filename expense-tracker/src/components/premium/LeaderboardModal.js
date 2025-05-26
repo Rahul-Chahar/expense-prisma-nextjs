@@ -20,7 +20,7 @@ export default function LeaderboardModal({ isOpen, onClose }) {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/premium/leaderboard`, {
+      const response = await fetch(`http://localhost:8080/api/premium/leaderboard`, {
         headers: { 
           Authorization: `Bearer ${token}` 
         }
@@ -86,7 +86,7 @@ export default function LeaderboardModal({ isOpen, onClose }) {
               <X size={24} />
             </button>
           </div>
-          <p className="mt-2 text-purple-100 text-sm">See who's managing their expenses best!</p>
+          <p className="mt-2 text-purple-100 text-sm">See who is managing their expenses best!</p>
         </div>
         
         {/* Content */}

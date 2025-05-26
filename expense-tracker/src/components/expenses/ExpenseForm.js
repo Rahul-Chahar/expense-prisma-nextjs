@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function ExpenseForm({ onExpenseAdded }) {
   const [amount, setAmount] = useState('');
@@ -9,6 +9,42 @@ export default function ExpenseForm({ onExpenseAdded }) {
   const [category, setCategory] = useState('Food');
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  
+  // Search functionality states
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const dropdownRef = useRef(null);
+
+  const categories = [
+    { value: "Salary", label: "💰 Salary" },
+    { value: "Food", label: "🍛 Food" },
+    { value: "Petrol", label: "⛽ Petrol" },
+    { value: "Groceries", label: "🛒 Groceries" },
+    { value: "Transportation", label: "🚗 Transportation" },
+    { value: "Entertainment", label: "🎭 Entertainment" },
+    { value: "Shopping", label: "🛍️ Shopping" },
+    { value: "Bills", label: "📱 Bills & Recharge" },
+    { value: "Health", label: "💊 Health" },
+    { value: "Education", label: "📚 Education" },
+    { value: "Other", label: "📦 Other" }
+  ];
+
+  const filteredCategories = categories.filter(cat =>
+    cat.label.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const selectedCategory = categories.find(cat => cat.value === category);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+        setSearchTerm('');
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +68,7 @@ export default function ExpenseForm({ onExpenseAdded }) {
         throw new Error('Please enter a valid amount');
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/expenses/add`, {
+      const response = await fetch(`http://localhost:8080/api/expenses/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +116,6 @@ export default function ExpenseForm({ onExpenseAdded }) {
               className="input-field pl-8"
             />
           </div>
-          {/* Form Error Display */}
           {errorMessage && <div className="text-error text-sm mt-1">{errorMessage}</div>}
         </div>
         <div>
@@ -109,28 +144,53 @@ export default function ExpenseForm({ onExpenseAdded }) {
             className="input-field"
           />
         </div>
-        <div>
+        <div className={`${isOpen ? 'mb-64' : ''}`}>
           <label htmlFor="category" className="block text-sm font-medium text-foreground mb-1">Category</label>
-          <select 
-            id="category" 
-            name="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required 
-            className="input-field"
-          >
-            <option value="Salary">💰 Salary</option>
-            <option value="Food">🍛 Food</option>
-            <option value="Petrol">⛽ Petrol</option>
-            <option value="Groceries">🛒 Groceries</option>
-            <option value="Transportation">🚗 Transportation</option>
-            <option value="Entertainment">🎭 Entertainment</option>
-            <option value="Shopping">🛍️ Shopping</option>
-            <option value="Bills">📱 Bills & Recharge</option>
-            <option value="Health">💊 Health</option>
-            <option value="Education">📚 Education</option>
-            <option value="Other">📦 Other</option>
-          </select>
+          <div className="relative" ref={dropdownRef}>
+            <button
+              type="button"
+              onClick={() => setIsOpen(!isOpen)}
+              className="input-field w-full text-left flex justify-between items-center"
+            >
+              <span>{selectedCategory ? selectedCategory.label : 'Select category'}</span>
+              <span className={`transform transition-transform ${isOpen ? 'rotate-180' : ''}`}>▼</span>
+            </button>
+            
+            {isOpen && (
+              <div className="absolute z-50 w-full mt-1 bg-background border border-border rounded shadow-lg">
+                <div className="p-2 border-b border-border">
+                  <input
+                    type="text"
+                    placeholder="Search categories..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full px-3 py-2 border border-border rounded text-sm bg-background text-foreground placeholder-foreground-alt focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+                <div className="max-h-48 overflow-y-auto">
+                  {filteredCategories.map((cat) => (
+                    <button
+                      key={cat.value}
+                      type="button"
+                      onClick={() => {
+                        setCategory(cat.value);
+                        setIsOpen(false);
+                        setSearchTerm('');
+                      }}
+                      className={`w-full px-3 py-2 text-left text-foreground hover:bg-hover transition-colors ${
+                        category === cat.value ? 'bg-primary bg-opacity-10 text-primary' : ''
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  ))}
+                  {filteredCategories.length === 0 && (
+                    <div className="px-3 py-2 text-foreground-alt text-sm">No categories found</div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
         <button 
           type="submit" 

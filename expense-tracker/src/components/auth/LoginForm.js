@@ -17,7 +17,7 @@ export default function LoginForm() {
     setSuccessMessage('');
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/login`, {
+      const response = await fetch(`http://localhost:8080/api/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ export default function LoginForm() {
     setResetLoading(true);
     
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/password/forgotpassword`, {
+      const response = await fetch(`http://localhost:8080/api/password/forgotpassword`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ export default function LoginForm() {
         {/* Sign Up Link */}
         <div className="mt-6 text-center">
           <p className="text-foreground-alt">
-            Don't have an account?
+            Do not have an account?
             <Link href="/signup" className="text-secondary hover:text-blue-700 font-medium ml-1">
               Sign up now
             </Link>
@@ -195,7 +195,7 @@ export default function LoginForm() {
                 </svg>
               </button>
             </div>
-            <p className="text-foreground-alt mb-4">Enter your email address and we'll send you a link to reset your password.</p>
+            <p className="text-foreground-alt mb-4">Enter your email address and we will send you a link to reset your password.</p>
             <form onSubmit={handleForgotPassword} className="space-y-4">
               <div>
                 <label htmlFor="reset-email" className="block text-sm font-medium text-foreground mb-1">

@@ -12,7 +12,6 @@ export default function RootLayout({ children }) {
   const router = useRouter();
   const [isClient, setIsClient] = useState(false);
 
-  // ✅ Fix: Handle client-side mounting and auth check
   useEffect(() => {
     setIsClient(true);
     
